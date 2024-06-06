@@ -1,11 +1,20 @@
 import { useEffect, useState } from 'react';
+
+//Components
 import Header from '../../components/header/Header';
+import BlogPost from '../../components/blogPost/BlogPost';
+
+//Estilo
+import { RowBlogPosts } from './styledHome';
+import Pagination from '../../components/pagination/Pagination';
 
 export default function Home() {
   //constante referente ao artigo
   const [blogPost, setBlogPost] = useState([]);
-  //constante referente a imagem do artigo
-  const [imagePost, setImagePost] = useState([]);
+
+  //constantes de paginação
+  const [startIndex, setStartIndex] = useState(0);
+  const [endIndex, setEndIndex] = useState(20);
 
   useEffect(() => {
     fetch(`https://jsonplaceholder.typicode.com/posts`)
@@ -13,24 +22,42 @@ export default function Home() {
       .then(json => setBlogPost(json));
   }, []);
 
-  useEffect(() => {
-    fetch(`https://jsonplaceholder.typicode.com/photos`)
-      .then(response => response.json())
-      .then(json => setImagePost(json));
-  }, []);
+  //funções de paginação
+  const nextPage = () => {
+    setEndIndex(prev => prev + 20);
+    setStartIndex(prev => prev + 20);
+  };
+
+  const previousPage = () => {
+    setEndIndex(prev => prev - 20);
+    setStartIndex(prev => prev - 20);
+  };
 
   return (
     <>
       <Header />
-      <h1>My home page.</h1>
-      {blogPost.map(posts => {
-        return (
-          <div key={posts.id}>
-            <h2>{posts.title}</h2>
-            <p>{posts.body}</p>
-          </div>
-        );
-      })}
+      <Pagination
+        nextFunction={nextPage}
+        previousFunction={previousPage}
+        endIndex={endIndex}
+      />
+      <RowBlogPosts>
+        {blogPost.slice(startIndex, endIndex).map(post => {
+          return (
+            <BlogPost
+              key={post.id}
+              id={post.id}
+              title={post.title}
+              body={post.body}
+            />
+          );
+        })}
+      </RowBlogPosts>
+      <Pagination
+        nextFunction={nextPage}
+        previousFunction={previousPage}
+        endIndex={endIndex}
+      />
     </>
   );
 }
