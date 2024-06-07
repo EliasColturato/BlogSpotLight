@@ -7,6 +7,7 @@ import BlogPost from '../../components/blogPost/BlogPost';
 //Estilo
 import { RowBlogPosts } from './styledHome';
 import Pagination from '../../components/pagination/Pagination';
+import { Link } from 'react-router-dom';
 
 export default function Home() {
   //constante referente ao artigo
@@ -44,12 +45,14 @@ export default function Home() {
       <RowBlogPosts>
         {blogPost.slice(startIndex, endIndex).map(post => {
           return (
-            <BlogPost
-              key={post.id}
-              id={post.id}
-              title={post.title}
-              body={post.body}
-            />
+            <Link to={`/post/${post.id}`}>
+              <BlogPost
+                key={post.id}
+                id={post.id}
+                title={post.title}
+                body={post.body}
+              />
+            </Link>
           );
         })}
       </RowBlogPosts>

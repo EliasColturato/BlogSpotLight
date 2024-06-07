@@ -12,4 +12,15 @@ export const WrapperHeader = styled.div`
 export const NavButtons = styled.div`
   display: flex;
   column-gap: 4rem;
+  display: none;
+  @media (min-width: 768px) {
+    display: flex;
+    column-gap: 4rem;
+  }
+`;
+
+export const MenuMobile = styled.div`
+  @media (min-width: 768px) {
+    display: none;
+  }
 `;
