@@ -1,14 +1,20 @@
+import { WrapperButtons, PreviousButton, NetxButton } from './styledPagination';
+
 export default function Pagination({
   nextFunction,
   previousFunction,
   endIndex,
 }) {
   return (
-    <>
+    <WrapperButtons>
       {endIndex > 20 && (
-        <button onClick={previousFunction}>Voltar página</button>
+        <PreviousButton onClick={previousFunction}>
+          Voltar página
+        </PreviousButton>
       )}
-      {endIndex < 100 && <button onClick={nextFunction}>Próxima página</button>}
-    </>
+      {endIndex < 100 && (
+        <NetxButton onClick={nextFunction}>Próxima página</NetxButton>
+      )}
+    </WrapperButtons>
   );
 }

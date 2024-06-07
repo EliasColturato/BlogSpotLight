@@ -53,11 +53,6 @@ export default function Home() {
           );
         })}
       </RowBlogPosts>
-      <Pagination
-        nextFunction={nextPage}
-        previousFunction={previousPage}
-        endIndex={endIndex}
-      />
     </>
   );
 }
